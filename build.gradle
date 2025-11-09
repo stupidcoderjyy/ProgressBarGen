@@ -1,0 +1,40 @@
+plugins {
+    id 'application'
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+project.setProperty 'mainClassName', 'pbg.Main'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'pbg.Main'
+    }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'io.qtjambi:qtjambi:6.8.4'
+    implementation 'io.qtjambi:qtjambi-native-windows-x64:6.8.4'
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    implementation 'stupidcoder:common-util:1.3.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+run {
+    systemProperty 'java.library.path', 'C:\\Qt\\6.8.3\\mingw_64\\bin'
+}
