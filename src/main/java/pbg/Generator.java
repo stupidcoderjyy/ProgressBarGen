@@ -27,7 +27,13 @@ public class Generator extends Programme {
             return ReturnActions.END;
         });
         root.addChild("add", (var it) -> {
-            addArea(Integer.parseInt(it.next()), it.next());
+            while (it.hasNext()) {
+                addArea(Integer.parseInt(it.next()), it.next());
+            }
+            return ReturnActions.END;
+        });
+        root.addChild("remove", (var it) -> {
+            removeArea(Integer.parseInt(it.next()));
             return ReturnActions.END;
         });
         root.addChild("clear", (var it) -> {
@@ -55,6 +61,10 @@ public class Generator extends Programme {
 
     public void addArea(int frame, String title) {
         areas.add(new Area(frame, title));
+    }
+
+    public void removeArea(int frame) {
+        areas.removeIf(a -> a.frame() == frame);
     }
 
     public void gen(String filePath) {
